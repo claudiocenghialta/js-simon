@@ -44,7 +44,7 @@ setTimeout(function() {
     console.log('numeri utente: '+numeriUtente);
     console.log('numeri corretti: '+numeriCorretti);
     alert('RISULTATO: hai indovinato '+numeriCorretti.length+' numeri su 5. Questi sono i numeri che hai inserito correttamente: '+numeriCorretti);
-}, 3000);
+}, 30000);
 
 
 
