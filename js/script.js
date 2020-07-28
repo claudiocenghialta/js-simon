@@ -10,41 +10,49 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e
 quali dei numeri da indovinare sono stati individuati.
 */
 
+//parametri del gioco
+var rangeMin = 1;
+var rangeMax = 100;
+var numGiocate = 5;
+var timer = 3 //secondi dopo i quali viene chiesto inserimento valori all'utente -- NB: valore espresso in secondi
+var numeri = []; //numeri generati dal pc
+var numeriUtente = []; //numeri inseriti dall'utente
+var numeriCorretti = []; //numeri indovinati dall'utente
 
 //genero 5 numeri casuali
-var numeri = [];
-var nuovoNumero;
-while (numeri.length < 5) {
-    nuovoNumero = (random(1, 100))
+while (numeri.length < numGiocate) {
+    var nuovoNumero;
+    nuovoNumero = (random(rangeMin, rangeMax))
     if (trovaElemento(numeri, nuovoNumero) == false) {
         numeri.push(nuovoNumero);
     }
 }
 console.log('numeri generati: '+numeri);
-var numeriUtente = [];
-var numeriCorretti = [];
 //mostro all'utente i nueri casuali che sono stati generati
 alert('I numeri generati in automatico sono: '+numeri)
 
 setTimeout(function() {
 
-    //chiedo prompt e salvo in array
-    while (numeriUtente.length<5) {
+    
+    while (numeriUtente.length<numGiocate) {
+        //chiedo prompt all'utente
         var numeroUtente = parseInt(prompt('inserisci i numeri che ricordi'))
-        while (isNaN(numeroUtente)==true||numeroUtente<1||numeroUtente>100||trovaElemento(numeriUtente,numeroUtente)==true){
+        //controllo i dati inseriti
+        while (isNaN(numeroUtente)==true||numeroUtente<rangeMin||numeroUtente>rangeMax||trovaElemento(numeriUtente,numeroUtente)==true){
             numeroUtente = parseInt(prompt('ATTENZIONE NUMERO NON VALIDO! inserisci i numeri che ricordi'))
         }
+        //inserisco nell'array dei numeri utente
         numeriUtente.push(numeroUtente);
         //confronto il numero con quelli generati automaticamente,
         if (trovaElemento(numeri,numeroUtente)){
-            // se corretto lo inserisco nell'apposito array
+            // se corretto inserisco nell'array dei numeri corretti
             numeriCorretti.push(numeroUtente);
         }
     }
     console.log('numeri utente: '+numeriUtente);
     console.log('numeri corretti: '+numeriCorretti);
     alert('RISULTATO: hai indovinato '+numeriCorretti.length+' numeri su 5. Questi sono i numeri che hai inserito correttamente: '+numeriCorretti);
-}, 30000);
+}, (timer*1000));
 
 
 
